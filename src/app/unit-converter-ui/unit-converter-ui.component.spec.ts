@@ -8,9 +8,8 @@ describe('UnitConverterUiComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UnitConverterUiComponent ]
-    })
-    .compileComponents();
+      declarations: [UnitConverterUiComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -7,7 +7,7 @@ import { CurrencyConverterCategory } from '../classes/currency/CurrencyConverter
 import { ConverterCategoryBase } from '../classes/ConverterCategoryBase';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UnitConverterService {
   categories: ConverterCategory[] = [];
@@ -22,7 +22,7 @@ export class UnitConverterService {
       temperatureConverterCategory,
       distanceConverterCategory,
       weightConverterCategory,
-      currencyConverterCategory
+      currencyConverterCategory,
     ];
   }
 

@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { UnitConverterService} from './services/unit-converter.service';
+import { UnitConverterService } from './services/unit-converter.service';
 
 @Component({
   selector: 'app-unit-converter-ui',
   templateUrl: './unit-converter-ui.component.html',
-  styleUrls: ['./unit-converter-ui.component.css']
+  styleUrls: ['./unit-converter-ui.component.css'],
 })
 export class UnitConverterUiComponent implements OnInit {
-
   categoryValueCopy: string;
   converterValueCopy: string;
   inputValueCopy: string;
@@ -16,10 +15,15 @@ export class UnitConverterUiComponent implements OnInit {
   inputPromt = 'Key in value';
   outputPromt = 'Converted value';
 
-  categoryModels: { name: string, index: string }[] = [];
-  converterModels: { name: string, index: string, unitIn: string, unitOut: string }[] = [];
+  categoryModels: { name: string; index: string }[] = [];
+  converterModels: {
+    name: string;
+    index: string;
+    unitIn: string;
+    unitOut: string;
+  }[] = [];
 
-  constructor(private unitConverterService: UnitConverterService) { }
+  constructor(private unitConverterService: UnitConverterService) {}
 
   ngOnInit(): void {
     // Initialize categories and converter
@@ -28,16 +32,15 @@ export class UnitConverterUiComponent implements OnInit {
 
     this.setupCategoryModels();
     this.setupConverterModels(parseFloat(this.categoryValue));
-    console.log("catModel:" + JSON.stringify(this.categoryModels));
-    console.log("convModel:" + JSON.stringify(this.converterModels));
+    console.log('catModel:' + JSON.stringify(this.categoryModels));
+    console.log('convModel:' + JSON.stringify(this.converterModels));
   }
 
   setupCategoryModels() {
     const cats = this.unitConverterService.getCategories();
-    for (let i = 0; i < cats.length; i++)
-    {
+    for (let i = 0; i < cats.length; i++) {
       const cat = cats[i];
-      this.categoryModels.push({name: cat.getName(), index: "" + i});
+      this.categoryModels.push({ name: cat.getName(), index: '' + i });
     }
   }
 
@@ -46,10 +49,14 @@ export class UnitConverterUiComponent implements OnInit {
     const cat = cats[catIndex];
     const convs = cat.getConverters();
     this.converterModels = [];
-    for (let i = 0; i < convs.length; i++)
-    {
+    for (let i = 0; i < convs.length; i++) {
       const conv = convs[i];
-      this.converterModels.push({ name: conv.getName(), index: "" + i, unitIn: conv.getInputUnit(), unitOut: conv.getOutputUnit() });
+      this.converterModels.push({
+        name: conv.getName(),
+        index: '' + i,
+        unitIn: conv.getInputUnit(),
+        unitOut: conv.getOutputUnit(),
+      });
     }
   }
 
@@ -61,7 +68,7 @@ export class UnitConverterUiComponent implements OnInit {
     this.categoryValueCopy = value;
     this.converterValue = '0';
     this.setupConverterModels(parseFloat(value));
-    this.inputValue = "";
+    this.inputValue = '';
   }
 
   get categoryValue(): string {
@@ -74,8 +81,8 @@ export class UnitConverterUiComponent implements OnInit {
     const cat = cats[parseInt(this.categoryValue, 10)];
     const convs = cat.getConverters();
     const conv = convs[parseInt(this.converterValueCopy, 10)];
-    this.inputPromt = "Input as " + conv.getInputUnit();
-    this.outputPromt = "Output as " + conv.getOutputUnit();
+    this.inputPromt = 'Input as ' + conv.getInputUnit();
+    this.outputPromt = 'Output as ' + conv.getOutputUnit();
     this.inputValue = this.outputValue;
   }
 
@@ -89,11 +96,10 @@ export class UnitConverterUiComponent implements OnInit {
     const cat = cats[parseInt(this.categoryValue, 10)];
     const convs = cat.getConverters();
     const conv = convs[parseInt(this.converterValueCopy, 10)];
-    if (value !== "")
-    {
-      this.outputValue = conv.convert(value );
+    if (value !== '') {
+      this.outputValue = conv.convert(value);
     } else {
-      this.outputValue = "";
+      this.outputValue = '';
     }
   }
 
@@ -108,5 +114,4 @@ export class UnitConverterUiComponent implements OnInit {
   get outputValue(): string {
     return this.outputValueCopy;
   }
-
 }
